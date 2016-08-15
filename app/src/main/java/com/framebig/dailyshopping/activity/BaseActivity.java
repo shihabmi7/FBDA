@@ -6,9 +6,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.framebig.dailyshopping.R;
 
@@ -25,10 +29,24 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private Map map;
     DrawerLayout drawer;
     Toolbar toolbar;
+    ImageButton imageButton;
+
     protected void onCreateDrawer() {
 
-        toolbar  = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        imageButton = (ImageButton) findViewById(R.id.imagebutton);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.e("imagebutton", "hello...");
+                Toast.makeText(getApplicationContext(), "imagebutton clicked...", Toast.LENGTH_LONG).show();
+
+            }
+        });
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(
@@ -52,7 +70,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
