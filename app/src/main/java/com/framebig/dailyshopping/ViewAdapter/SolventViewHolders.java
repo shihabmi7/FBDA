@@ -15,8 +15,8 @@ import com.framebig.dailyshopping.utility.FDAColorManager;
 
 public class SolventViewHolders extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public TextView countryName, textView_add_to_cart, textView_quantity;
-    public ImageView countryPhoto;
+    public TextView productName, textView_add_to_cart, textView_quantity;
+    public ImageView productPhoto;
     Button btn_increment, btn_decrease;
     RelativeLayout relative_product, relative_cart;
     int quatity = 0;
@@ -27,8 +27,8 @@ public class SolventViewHolders extends RecyclerView.ViewHolder implements View.
 
         itemView.setOnClickListener(this);
 
-        countryName = (TextView) itemView.findViewById(R.id.product_name);
-        countryPhoto = (ImageView) itemView.findViewById(R.id.product_picture);
+        productName = (TextView) itemView.findViewById(R.id.product_name);
+        productPhoto = (ImageView) itemView.findViewById(R.id.product_picture);
 
         btn_increment = (Button) itemView.findViewById(R.id.btn_increment);
         btn_decrease = (Button) itemView.findViewById(R.id.btn_decrease);

@@ -8,6 +8,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import com.framebig.dailyshopping.R;
 import com.framebig.dailyshopping.ViewAdapter.SolventRecyclerViewAdapter;
 import com.framebig.dailyshopping.model.ItemObjects;
+import com.framebig.dailyshopping.model.ProductType;
+import com.framebig.dailyshopping.network.CustomListener;
+import com.framebig.dailyshopping.network.GetProductListAPI;
+import com.framebig.dailyshopping.utility.ApplicationData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,8 @@ public class HomeActivity extends BaseActivity
     private StaggeredGridLayoutManager gaggeredGridLayoutManager;
     Activity activity = this;
     final int COLUMN_NO = 2;
+    private RecyclerView recyclerView;
+    private SolventRecyclerViewAdapter rcAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +60,34 @@ public class HomeActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);*/
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(COLUMN_NO, 1);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
 
-        List<ItemObjects> gaggeredList = getListItemData();
+        // List<ItemObjects> gaggeredList = getListItemData();
 
-        SolventRecyclerViewAdapter rcAdapter = new SolventRecyclerViewAdapter(activity, gaggeredList);
-        recyclerView.setAdapter(rcAdapter);
+        /*SolventRecyclerViewAdapter rcAdapter = new SolventRecyclerViewAdapter(activity, gaggeredList);
+        recyclerView.setAdapter(rcAdapter);*/
+
+        GetProductListAPI getProductListAPI = new GetProductListAPI(this, true, ProductType.Breakfast);
+        getProductListAPI.setListener(new CustomListener() {
+            @Override
+            public void ModificationMade() {
+
+                rcAdapter = new SolventRecyclerViewAdapter(activity, ApplicationData.productArrayList);
+                recyclerView.setAdapter(rcAdapter);
+            }
+        });
+        getProductListAPI.execute();
+
+    }
+
+
+    private void initUI() {
+
+
     }
 
   /*  @Override
