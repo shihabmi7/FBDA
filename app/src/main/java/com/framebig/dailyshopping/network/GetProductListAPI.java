@@ -31,24 +31,12 @@ public class GetProductListAPI extends BaseTask {
     public final String STATUS = "status";
     public final String OPENING_TIME = "opening_time";
     public final String CLOSING_TIME = "closing_time";
-
-
     public String postCode = null;
     public ProductType userType = null;
     public String SUB_URL = "/product/productlist";
     public String URL_IMAGE = "http://10.0.3.2:8080/framebig_daily_apps/";
 
 
-    /*
-     * "id": 3, "name": "Wow Burger", "address":
-     * "House 12, Road 18, Sector 3, Dhaka, 1230", "postalCode": "1230",
-     * "email": "sds@asda.fdgdf", "category": 2, "status": "active", "profile":
-     * 3, "geo_location": "", "opening_time": "1970-01-01T04:00:00.000Z",
-     * "closing_time": "1970-01-01T16:00:00.000Z", "delivery_start_time":
-     * "1970-01-01T05:00:00.000Z", "delivery_end_time":
-     * "1970-01-01T15:00:00.000Z", "creation_date": "2015-08-23T13:04:16.000Z",
-     * "update_date": "2015-08-23T13:09:36.000Z"
-     */
     public GetProductListAPI(Context ctx, boolean displayProgress, ProductType userType) {
 
         super(ctx, displayProgress);
@@ -108,6 +96,8 @@ public class GetProductListAPI extends BaseTask {
                 resObj.setProductName(jobj2.getString("full_name"));
                 // resObj.setBrand_name(jobj2.getString("stock_status"));
                 resObj.setStandard_price(jobj2.getString("standard_price"));
+                resObj.setWeight_per_unit(jobj2.getString("weight_per_unit"));
+
                 resObj.setProduct_picture(URL_IMAGE + jobj2.getString("picture_location"));
                 // resObj.setProduct_picture("http://10.0.3.2:8080/framebig_daily_apps/burger.jpg");
                 Log.e("pic url", "" + jobj2.getString("picture_location"));
@@ -138,16 +128,11 @@ public class GetProductListAPI extends BaseTask {
 				  Log.e(" Res Image >> ", image_url);
 
 				 }
-
                       else {
 
 					  resObj.setImage_Url(jobj2.getString("icon")); }
-
 			  */
-
-
                 // ApplicationData.restaurantList.add(resObj);
-
 
             }
 
@@ -157,7 +142,6 @@ public class GetProductListAPI extends BaseTask {
         } catch (Exception e) {
 
         }
-
         return true;
     }
 
@@ -165,7 +149,6 @@ public class GetProductListAPI extends BaseTask {
     boolean taskOnFailure() {
 
         return false;
-
     }
 
     @Override
@@ -173,53 +156,4 @@ public class GetProductListAPI extends BaseTask {
         listener = cust;
     }
 
-   /* private ArrayList<WSAUser> getFamilyMemberList() {
-
-        ArrayList<WSAUser> familymemberlist = new ArrayList<WSAUser>();
-        WSAUser wsaUser = null;
-
-        wsaUser = new WSAUser();
-        wsaUser.setName("Shihab");
-        wsaUser.setUserType(WSAUserType.FAMILY);
-        familymemberlist.add(wsaUser);
-
-
-        wsaUser = new WSAUser();
-        wsaUser.setName("Riad");
-        wsaUser.setUserType(WSAUserType.FAMILY);
-        familymemberlist.add(wsaUser);
-
-
-        wsaUser = new WSAUser();
-        wsaUser.setName("Arshi");
-        wsaUser.setUserType(WSAUserType.FAMILY);
-        familymemberlist.add(wsaUser);
-
-        return familymemberlist;
-
-    }
-
-    private ArrayList<WSAUser> getOtherMembersLISt() {
-
-        ArrayList<WSAUser> otherMemberList = new ArrayList<WSAUser>();
-        WSAUser wsaUser = null;
-
-        wsaUser = new WSAUser();
-        wsaUser.setName("Rony");
-        wsaUser.setUserType(WSAUserType.OTHERS);
-        otherMemberList.add(wsaUser);
-
-        wsaUser = new WSAUser();
-        wsaUser.setName("Towhid");
-        wsaUser.setUserType(WSAUserType.OTHERS);
-        otherMemberList.add(wsaUser);
-
-
-        wsaUser = new WSAUser();
-        wsaUser.setName("Masum");
-        wsaUser.setUserType(WSAUserType.OTHERS);
-        otherMemberList.add(wsaUser);
-
-        return otherMemberList;
-    }*/
 }

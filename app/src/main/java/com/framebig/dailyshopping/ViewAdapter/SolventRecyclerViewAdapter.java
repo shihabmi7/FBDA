@@ -14,11 +14,16 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.List;
 
-public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventViewHolders> {
+public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventViewHolders> //implements View.OnClickListener
+{
 
     private List<Product> productList;
     private Context context;
     DisplayImageOptions options;
+    SolventViewHolders rcv;
+
+    int quatity = 0;
+    double totalAmount = 0;
 
     public SolventRecyclerViewAdapter(Context context, List<Product> itemList) {
         this.productList = itemList;
@@ -61,19 +66,136 @@ public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventView
     public SolventViewHolders onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.solvent_list, null);
-        SolventViewHolders rcv = new SolventViewHolders(layoutView);
+        rcv = new SolventViewHolders(layoutView);
         return rcv;
     }
 
     @Override
-    public void onBindViewHolder(SolventViewHolders holder, int position) {
-        holder.productName.setText(productList.get(position).getProductName());
-        //holder.productPhoto.setImageResource(productList.get(position).getProduct_picture());
-        ImageLoader.getInstance().displayImage(productList.get(position).getProduct_picture(), holder.productPhoto, options);
+    public void onBindViewHolder(final SolventViewHolders holder, int position) {
+
+        //rcv = holder;
+
+        final Product product = productList.get(position);
+
+        holder.textView_productName.setText(product.getProductName());
+        holder.textView_product_price.setText(product.getStandard_price());
+        holder.textView_product_weight.setText(product.getWeight_per_unit());
+
+        holder.relative_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                holder.openProductDetails(view);
+
+            }
+        });
+        holder.relative_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                holder.visibleCartButton(Double.parseDouble(product.getStandard_price()));
+
+            }
+        });
+        holder.btn_decrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                holder.leaveProduct(Double.parseDouble(product.getStandard_price()));
+
+            }
+        });
+        holder.btn_increment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                holder.addProduct(Double.parseDouble(product.getStandard_price()));
+
+               /* ++quatity;
+                holder.textView_quantity.setText("" + quatity);*/
+
+            }
+        });
+
+        //holder.imageview_productPhoto.setImageResource(productList.get(position).getProduct_picture());
+        ImageLoader.getInstance().displayImage(product.getProduct_picture(), holder.imageview_productPhoto, options);
     }
+
+    /*void addProduct() {
+
+        ++quatity;
+        rcv.textView_quantity.setText("" + quatity);
+        //TODO UPDATE PRICE WITH QUANTIITY
+    }
+
+    void leaveProduct() {
+
+        --quatity;
+        if (quatity <= 0) {
+            invisibleCartButton();
+        } else
+            rcv.textView_quantity.setText("" + quatity);
+
+    }
+
+
+    void visibleCartButton() {
+
+        addProduct();
+
+        rcv.textView_add_to_cart.setVisibility(View.INVISIBLE);
+
+        FDAColorManager.setGridViewColorSelected(rcv.relative_cart);
+
+        rcv.textView_quantity.setVisibility(View.VISIBLE);
+        rcv.btn_increment.setVisibility(View.VISIBLE);
+        rcv.btn_decrease.setVisibility(View.VISIBLE);
+    }
+
+    void invisibleCartButton() {
+
+        quatity = 0;
+
+        rcv.textView_add_to_cart.setVisibility(View.VISIBLE);
+        FDAColorManager.setGridViewColorDefault(rcv.relative_cart);
+
+        rcv.textView_quantity.setVisibility(View.INVISIBLE);
+        rcv.btn_increment.setVisibility(View.INVISIBLE);
+        rcv.btn_decrease.setVisibility(View.INVISIBLE);
+
+
+    }*/
 
     @Override
     public int getItemCount() {
         return this.productList.size();
     }
+
+
+  /*  @Override
+    public void onClick(View view) {
+        //Toast.makeText(view.getContext(), "Clicked Position ", Toast.LENGTH_SHORT).show();
+
+        if (view == rcv.relative_cart) {
+
+            // visibleCartButton();
+
+        } else if (view == rcv.btn_increment) {
+
+            //  addProduct();
+
+
+        } else if (view == rcv.btn_decrease) {
+
+            // leaveProduct();
+
+
+        } else if (view == rcv.relative_product) {
+
+            view.getContext().startActivity(new Intent(view.getContext(), SampleActivity.class));
+            Toast.makeText(view.getContext(), "relative_product Clicked   ", Toast.LENGTH_SHORT).show();
+
+        }
+    }*/
+
 }
