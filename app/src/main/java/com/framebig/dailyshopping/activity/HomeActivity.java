@@ -84,7 +84,6 @@ public class HomeActivity extends BaseActivity
 
     }
 
-
     private void initUI() {
 
 

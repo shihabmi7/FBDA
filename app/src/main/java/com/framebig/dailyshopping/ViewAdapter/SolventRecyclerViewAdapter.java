@@ -95,8 +95,10 @@ public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventView
 
                 holder.visibleCartButton(Double.parseDouble(product.getStandard_price()));
 
+
             }
         });
+
         holder.btn_decrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

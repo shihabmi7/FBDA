@@ -16,7 +16,7 @@ import com.framebig.dailyshopping.utility.FDAColorManager;
 public class SolventViewHolders extends RecyclerView.ViewHolder //implements View.OnClickListener
 {
 
-    public TextView textView_productName, textView_add_to_cart, textView_quantity, textView_product_price, textView_product_weight;
+    public TextView textView_productName, textView_add_to_cart, textView_quantity, textview_product_price_currency, textView_product_price, textView_product_weight;
     public ImageView imageview_productPhoto;
     public Button btn_increment, btn_decrease;
     public RelativeLayout relative_product, relative_cart;
@@ -39,6 +39,7 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
         relative_cart = (RelativeLayout) itemView.findViewById(R.id.relative_cart);
         textView_add_to_cart = (TextView) itemView.findViewById(R.id.textView_add_to_cart);
         textView_quantity = (TextView) itemView.findViewById(R.id.textView_quantity);
+        textview_product_price_currency = (TextView) itemView.findViewById(R.id.product_price_currency);
 
 
 //        relative_product.setOnClickListener(this);
@@ -47,8 +48,6 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
 //        btn_increment.setOnClickListener(this);
 
         FDAColorManager.setTextViewColorWhite(textView_quantity);
-
-
     }
 
     void addProduct(Double price) {
@@ -72,7 +71,6 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
             textView_quantity.setText("" + quatity);
             //TODO UPDATE PRICE WITH QUANTIITY
             textView_product_price.setText("" + quatity * price);
-
         }
 
     }

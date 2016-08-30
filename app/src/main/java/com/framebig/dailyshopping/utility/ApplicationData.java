@@ -1,5 +1,6 @@
 package com.framebig.dailyshopping.utility;
 
+import com.framebig.dailyshopping.model.Order;
 import com.framebig.dailyshopping.model.Product;
 
 import java.util.ArrayList;
@@ -7,8 +8,11 @@ import java.util.ArrayList;
 public class ApplicationData {
 
     // GENERAL PRODUCT DETAILS
-    public static ArrayList<String> GeoCodeTemp = new ArrayList<String>();
+
     public static ArrayList<Product> productArrayList = new ArrayList<Product>();
+
+    public static ArrayList<Order> orderList = new ArrayList<Order>();
+
     //public static ArrayList<WSAUser> wsaOthersUsersArrayList = new ArrayList<WSAUser>();
     public static String BASE_URL_GENYMOTION = "http://10.0.3.2:8080/Framebig";
     public static String BASE_URL = "http://10.0.2.2:8080/Framebig";
