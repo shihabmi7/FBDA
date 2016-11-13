@@ -30,7 +30,18 @@ public class Order {
     private String total;
     private String subTotal;
     private String orderType;
+    private String productName;
 
+
+    Order(String id, String name, String quantity) {
+        this.id = id;
+        this.productName = name;
+        this.amount_in_unit = quantity;
+    }
+
+    public Order() {
+
+    }
 
     public String getId() {
         return id;

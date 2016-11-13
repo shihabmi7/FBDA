@@ -1,4 +1,4 @@
-package com.framebig.dailyshopping.ViewAdapter;
+package com.framebig.dailyshopping.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -71,7 +71,7 @@ public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventView
     }
 
     @Override
-    public void onBindViewHolder(final SolventViewHolders holder, int position) {
+    public void onBindViewHolder(final SolventViewHolders holder, final int position) {
 
         //rcv = holder;
 
@@ -89,12 +89,12 @@ public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventView
 
             }
         });
+
         holder.relative_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                holder.visibleCartButton(Double.parseDouble(product.getStandard_price()));
-
+                holder.visibleCartButton(Double.parseDouble(product.getStandard_price()), position);
 
             }
         });
@@ -103,7 +103,7 @@ public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventView
             @Override
             public void onClick(View view) {
 
-                holder.leaveProduct(Double.parseDouble(product.getStandard_price()));
+                holder.leaveProduct(Double.parseDouble(product.getStandard_price()),position);
 
             }
         });
@@ -111,10 +111,10 @@ public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventView
             @Override
             public void onClick(View view) {
 
-                holder.addProduct(Double.parseDouble(product.getStandard_price()));
+                holder.addProduct(Double.parseDouble(product.getStandard_price()), position);
 
-               /* ++quatity;
-                holder.textView_quantity.setText("" + quatity);*/
+               /* ++quantity;
+                holder.textView_quantity.setText("" + quantity);*/
 
             }
         });
@@ -125,18 +125,18 @@ public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventView
 
     /*void addProduct() {
 
-        ++quatity;
-        rcv.textView_quantity.setText("" + quatity);
+        ++quantity;
+        rcv.textView_quantity.setText("" + quantity);
         //TODO UPDATE PRICE WITH QUANTIITY
     }
 
     void leaveProduct() {
 
-        --quatity;
-        if (quatity <= 0) {
+        --quantity;
+        if (quantity <= 0) {
             invisibleCartButton();
         } else
-            rcv.textView_quantity.setText("" + quatity);
+            rcv.textView_quantity.setText("" + quantity);
 
     }
 
@@ -156,7 +156,7 @@ public class SolventRecyclerViewAdapter extends RecyclerView.Adapter<SolventView
 
     void invisibleCartButton() {
 
-        quatity = 0;
+        quantity = 0;
 
         rcv.textView_add_to_cart.setVisibility(View.VISIBLE);
         FDAColorManager.setGridViewColorDefault(rcv.relative_cart);

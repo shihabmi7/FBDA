@@ -21,6 +21,13 @@
  */
 package com.framebig.dailyshopping.network;
 
+import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
+import static java.net.HttpURLConnection.HTTP_CREATED;
+import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
+import static java.net.HttpURLConnection.HTTP_OK;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -73,15 +80,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
-import static java.net.HttpURLConnection.HTTP_CREATED;
-import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
-import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
-import static java.net.HttpURLConnection.HTTP_OK;
-
 /**
- * ActivityStatusRecognition fluid interface for making HTTP requests using an underlying
+ * A fluid interface for making HTTP requests using an underlying
  * {@link HttpURLConnection} (or sub-class).
  * <p>
  * Each instance supports making a single request and cannot be reused for
@@ -298,7 +298,7 @@ public class HttpRequest {
   }
 
   private static StringBuilder addPathSeparator(final String baseUrl,
-                                                final StringBuilder result) {
+      final StringBuilder result) {
     // Add trailing slash if the base URL doesn't have any path segments.
     //
     // The following test is checking for the last slash not being part of
@@ -309,7 +309,7 @@ public class HttpRequest {
   }
 
   private static StringBuilder addParamPrefix(final String baseUrl,
-                                              final StringBuilder result) {
+      final StringBuilder result) {
     // Add '?' if missing and add '&' if params already exist in base url
     final int queryStart = baseUrl.indexOf('?');
     final int lastChar = result.length() - 1;
@@ -698,7 +698,7 @@ public class HttpRequest {
      * @param bufferSize
      */
     public RequestOutputStream(final OutputStream stream, final String charset,
-                               final int bufferSize) {
+        final int bufferSize) {
       super(stream, bufferSize);
 
       encoder = Charset.forName(getValidCharset(charset)).newEncoder();
@@ -882,7 +882,7 @@ public class HttpRequest {
    * @return request
    */
   public static HttpRequest get(final CharSequence baseUrl,
-                                final Map<?, ?> params, final boolean encode) {
+      final Map<?, ?> params, final boolean encode) {
     String url = append(baseUrl, params);
     return get(encode ? encode(url) : url);
   }
@@ -946,7 +946,7 @@ public class HttpRequest {
    * @return request
    */
   public static HttpRequest post(final CharSequence baseUrl,
-                                 final Map<?, ?> params, final boolean encode) {
+      final Map<?, ?> params, final boolean encode) {
     String url = append(baseUrl, params);
     return post(encode ? encode(url) : url);
   }
@@ -1010,7 +1010,7 @@ public class HttpRequest {
    * @return request
    */
   public static HttpRequest put(final CharSequence baseUrl,
-                                final Map<?, ?> params, final boolean encode) {
+      final Map<?, ?> params, final boolean encode) {
     String url = append(baseUrl, params);
     return put(encode ? encode(url) : url);
   }
@@ -1074,7 +1074,7 @@ public class HttpRequest {
    * @return request
    */
   public static HttpRequest delete(final CharSequence baseUrl,
-                                   final Map<?, ?> params, final boolean encode) {
+      final Map<?, ?> params, final boolean encode) {
     String url = append(baseUrl, params);
     return delete(encode ? encode(url) : url);
   }
@@ -1138,7 +1138,7 @@ public class HttpRequest {
    * @return request
    */
   public static HttpRequest head(final CharSequence baseUrl,
-                                 final Map<?, ?> params, final boolean encode) {
+      final Map<?, ?> params, final boolean encode) {
     String url = append(baseUrl, params);
     return head(encode ? encode(url) : url);
   }
@@ -2505,7 +2505,7 @@ public class HttpRequest {
    * @throws IOException
    */
   protected HttpRequest writePartHeader(final String name,
-                                        final String filename, final String contentType) throws IOException {
+      final String filename, final String contentType) throws IOException {
     final StringBuilder partBuffer = new StringBuilder();
     partBuffer.append("form-data; name=\"").append(name);
     if (filename != null)
@@ -2538,7 +2538,7 @@ public class HttpRequest {
    * @throws HttpRequestException
    */
   public HttpRequest part(final String name, final String filename,
-                          final String part) throws HttpRequestException {
+      final String part) throws HttpRequestException {
     return part(name, filename, null, part);
   }
 
@@ -2554,7 +2554,7 @@ public class HttpRequest {
    * @throws HttpRequestException
    */
   public HttpRequest part(final String name, final String filename,
-                          final String contentType, final String part) throws HttpRequestException {
+      final String contentType, final String part) throws HttpRequestException {
     try {
       startPart();
       writePartHeader(name, filename, contentType);
@@ -2588,7 +2588,7 @@ public class HttpRequest {
    * @throws HttpRequestException
    */
   public HttpRequest part(final String name, final String filename,
-                          final Number part) throws HttpRequestException {
+      final Number part) throws HttpRequestException {
     return part(name, filename, part != null ? part.toString() : null);
   }
 
@@ -2615,7 +2615,7 @@ public class HttpRequest {
    * @throws HttpRequestException
    */
   public HttpRequest part(final String name, final String filename,
-                          final File part) throws HttpRequestException {
+      final File part) throws HttpRequestException {
     return part(name, filename, null, part);
   }
 
@@ -2631,7 +2631,7 @@ public class HttpRequest {
    * @throws HttpRequestException
    */
   public HttpRequest part(final String name, final String filename,
-                          final String contentType, final File part) throws HttpRequestException {
+      final String contentType, final File part) throws HttpRequestException {
     final InputStream stream;
     try {
       stream = new BufferedInputStream(new FileInputStream(part));
@@ -2666,7 +2666,7 @@ public class HttpRequest {
    * @throws HttpRequestException
    */
   public HttpRequest part(final String name, final String filename,
-                          final String contentType, final InputStream part)
+      final String contentType, final InputStream part)
       throws HttpRequestException {
     try {
       startPart();

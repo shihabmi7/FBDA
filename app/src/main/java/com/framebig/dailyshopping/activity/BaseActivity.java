@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.framebig.dailyshopping.R;
+import com.framebig.dailyshopping.utility.ApplicationData;
 
 import java.util.Map;
 
@@ -43,7 +44,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
 
                 Log.e("imagebutton", "hello...");
-                Toast.makeText(getApplicationContext(), "imagebutton clicked...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "imagebutton clicked..." , Toast.LENGTH_LONG).show();
+                showOrderDtails();
 
             }
         });
@@ -54,8 +56,21 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_left_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+    void showOrderDtails() {
+
+        for (int i = 0; i < ApplicationData.orderSize.length; i++) {
+
+            if (ApplicationData.orderSize[i] > 0) {
+
+                Log.e("", "" + ApplicationData.productArrayList.get(i).getProductName() + "    " + ApplicationData.orderSize[i]);
+
+            }
+        }
     }
 
     @Override
@@ -75,7 +90,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify orderSize parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 
 /**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
+ * <orderSize href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</orderSize>
  */
 public class ApplicationTest extends ApplicationTestCase<Application> {
     public ApplicationTest() {

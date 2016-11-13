@@ -1,4 +1,4 @@
-package com.framebig.dailyshopping.ViewAdapter;
+package com.framebig.dailyshopping.adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.framebig.dailyshopping.R;
 import com.framebig.dailyshopping.activity.SampleActivity;
+import com.framebig.dailyshopping.model.Order;
+import com.framebig.dailyshopping.utility.ApplicationData;
 import com.framebig.dailyshopping.utility.FDAColorManager;
 
 public class SolventViewHolders extends RecyclerView.ViewHolder //implements View.OnClickListener
@@ -20,7 +22,7 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
     public ImageView imageview_productPhoto;
     public Button btn_increment, btn_decrease;
     public RelativeLayout relative_product, relative_cart;
-    int quatity = 0;
+    int quantity = 0;
     double totalAmount = 0;
     String TAG_CURRENCY = "Tk ";
 
@@ -50,35 +52,62 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
         FDAColorManager.setTextViewColorWhite(textView_quantity);
     }
 
-    void addProduct(Double price) {
+    void addProduct(Double price, int position) {
 
-        ++quatity;
-        textView_quantity.setText("" + quatity);
+        ++quantity;
+        textView_quantity.setText("" + quantity);
 
         //TODO UPDATE PRICE WITH QUANTIITY
-        textView_product_price.setText("" + quatity * price);
+        textView_product_price.setText("" + quantity * price);
+
+        Order order = new Order();
+        order.setProduct_id(ApplicationData.productArrayList.get(position).getProuduct_id());
+        order.setAmount_in_unit("" + quantity);
+
+        if (ApplicationData.orderList.size() > 0) {
+
+            for (Order aOrder : ApplicationData.orderList) {
+
+                if (aOrder.getProduct_id() == ApplicationData.orderList.get(position).getProduct_id()) {
+
+
+                }
+            }
+
+        } else {
+
+            ApplicationData.orderList.add(order);
+
+        }
+
+
+        //ApplicationData.orderSize[position] = quantity;
+
 
     }
 
-    void leaveProduct(Double price) {
+    void leaveProduct(Double price, int position) {
 
-        --quatity;
-        if (quatity <= 0) {
+        --quantity;
+        if (quantity <= 0) {
 
             invisibleCartButton();
 
+
         } else {
-            textView_quantity.setText("" + quatity);
+            textView_quantity.setText("" + quantity);
             //TODO UPDATE PRICE WITH QUANTIITY
-            textView_product_price.setText("" + quatity * price);
+            textView_product_price.setText("" + quantity * price);
         }
+
+        ApplicationData.orderSize[position] = quantity;
 
     }
 
 
-    void visibleCartButton(Double price) {
+    void visibleCartButton(Double price, int position) {
 
-        addProduct(price);
+        addProduct(price, position);
 
         textView_add_to_cart.setVisibility(View.INVISIBLE);
         FDAColorManager.setGridViewColorSelected(relative_cart);
@@ -90,7 +119,7 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
 
     void invisibleCartButton() {
 
-        quatity = 0;
+        quantity = 0;
         textView_add_to_cart.setVisibility(View.VISIBLE);
         FDAColorManager.setGridViewColorDefault(relative_cart);
 
@@ -100,6 +129,10 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
 
     }
 
+    public void openProductDetails(View view) {
+        view.getContext().startActivity(new Intent(view.getContext(), SampleActivity.class));
+        Toast.makeText(view.getContext(), "Product Details Clicked   ", Toast.LENGTH_SHORT).show();
+    }
 
    /* @Override
     public void onClick(View view) {
@@ -126,8 +159,5 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
         }
     }*/
 
-    public void openProductDetails(View view) {
-        view.getContext().startActivity(new Intent(view.getContext(), SampleActivity.class));
-        Toast.makeText(view.getContext(), "Product Details Clicked   ", Toast.LENGTH_SHORT).show();
-    }
+
 }
