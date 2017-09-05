@@ -68,7 +68,7 @@ public class SolventViewHolders extends RecyclerView.ViewHolder //implements Vie
 
             for (Order aOrder : ApplicationData.orderList) {
 
-                if (aOrder.getProduct_id() == ApplicationData.orderList.get(position).getProduct_id()) {
+                if (aOrder.getProduct_id() == ApplicationData.productArrayList.get(position).getProuduct_id()) {
 
 
                 }

@@ -34,7 +34,7 @@ public class GetProductListAPI extends BaseTask {
     public String postCode = null;
     public ProductType userType = null;
     public String SUB_URL = "/product/productlist";
-    public String URL_IMAGE = "http://10.0.3.2:8080/framebig_daily_apps/";
+    public String URL_IMAGE = "http://192.168.0.104:8080/Framebig/";
 
 
     public GetProductListAPI(Context ctx, boolean displayProgress, ProductType userType) {
