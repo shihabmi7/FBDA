@@ -20,7 +20,11 @@ public class ApplicationData {
     public static final int MAX_NO_QUANTITY = 20;
     public final static String SHOW_ALL_RESTAURENT = "http://45.55.196.7:1337/rest/searchRestaurant";
     public final static String POST_CODE = "postCode";
-    private static String menu_Text[] = {"Edit your profile", "Write orderSize review", "Setting", "Your recent orders", "Your recent reviews", "Your HalalHub points", "Your favourite food"};
+    private static String menu_Text[] = {"Edit your profile",
+            "Write orderSize review",
+            "Setting",
+            "Your recent orders", "Your recent reviews",
+            "Your HalalHub points", "Your favourite food"};
 
     public static void orderSIze(int size) {
 
